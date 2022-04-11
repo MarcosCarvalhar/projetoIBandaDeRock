@@ -10,10 +10,10 @@ struct banda
 
 void redimencionar(banda *rock, int &tam)
 {
-	banda aux[tam];                \\ passa tamanho vetor
-	for(int i = 0; i < tam; i++)   \\ compara o contador 
+	banda aux[tam];                
+	for(int i = 0; i < tam; i++)    
 	{
-		aux[i] = rock[i];          \\
+		aux[i] = rock[i];          
 	}
 	delete[] rock;
 	banda *rock = NULL;
@@ -28,7 +28,7 @@ void incluir(banda *rock, int &tam)
 {
 	if(tam >= 5)
 	{	
-		redimencionar(rock,tam)
+		redimencionar(rock,tam);
 	}
 	//cout << "Digite o id :" << endl;
 	cin >> rock[tam].id;
