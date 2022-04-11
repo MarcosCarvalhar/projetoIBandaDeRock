@@ -10,10 +10,10 @@ struct banda
 
 void redimencionar(banda *rock, int &tam)
 {
-	banda aux[tam];                
-	for(int i = 0; i < tam; i++)    
+	/*banda aux[tam];
+	for(int i = 0; i < tam; i++)
 	{
-		aux[i] = rock[i];          
+		aux[i] = rock[i];
 	}
 	delete[] rock;
 	banda *rock = NULL;
@@ -21,7 +21,7 @@ void redimencionar(banda *rock, int &tam)
 	for(int i = 0; i < tam; i++)
 	{
 		rock[i] = aux[i];
-	}
+	}*/
 }
 
 void incluir(banda *rock, int &tam)
@@ -45,20 +45,27 @@ void incluir(banda *rock, int &tam)
 }
 
 
-void excluir(banda *rock, int tam)
+void excluir(banda *rock, int tam, int pos)
 {
-	
+	rock[pos].id = -1;
+	rock[pos].nome = " ";
+	rock[pos].estilo = " ";
+	rock[pos].ano = -1;
+	rock[pos].numFamosas = -1;
 }
 
 void listar(banda *rock,int tam)
 {
 	for(int j = 0; j < tam; j++)
 	{
-		cout << rock[j].id << endl;
-		cout << rock[j].nome << endl;
-		cout << rock[j].estilo << endl;
-		cout << rock[j].ano << endl;
-		cout << rock[j].numFamosas << endl;
+		if(rock[j].id != -1)
+		{
+			cout << rock[j].id << endl;
+			cout << rock[j].nome << endl;
+			cout << rock[j].estilo << endl;
+			cout << rock[j].ano << endl;
+			cout << rock[j].numFamosas << endl;
+		}
 	}
 }
 
@@ -74,7 +81,7 @@ void ordenar(banda *rock, int tam)
 
 int main()
 {
-	int opc,tam = 0;
+	int opc,tam = 0,pos;
 	banda *rock = new banda[5];
 	while(opc != 6)
 	{
@@ -90,7 +97,9 @@ int main()
 		switch(opc)
 		{
 			case 1 : incluir(rock, tam);break;
-			case 2 : excluir(rock,tam);break;
+			case 2 : cout << "Digite a posicao do vetor que deseja alterar : " << endl;
+					 cin >> pos;
+					 excluir(rock,tam,pos);break;
 			case 3 : listar(rock, tam);break;
 			case 4 : alterar(rock,tam);break;
 			case 5 : ordenar(rock,tam);break;
