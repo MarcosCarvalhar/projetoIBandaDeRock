@@ -93,16 +93,31 @@ int main()
 		cout << "5 - Ordenar" << endl;
 		cout << "6 - Sair" << endl;
 		cout << "Digite a opcao desejada : " << endl;
+		
 		cin >> opc;
 		switch(opc)
 		{
-			case 1 : incluir(rock, tam);break;
-			case 2 : cout << "Digite a posicao do vetor que deseja alterar : " << endl;
-					 cin >> pos;
-					 excluir(rock,tam,pos);break;
-			case 3 : listar(rock, tam);break;
-			case 4 : alterar(rock,tam);break;
-			case 5 : ordenar(rock,tam);break;
+			case 1 : 
+				incluir(rock, tam);
+			break;
+			
+			case 2 : 
+				cout << "Digite a posicao do vetor que deseja alterar : " << endl;
+			    cin >> pos;
+				excluir(rock,tam,pos);
+			break;
+			
+			case 3 : 
+				listar(rock, tam);
+			break;
+			
+			case 4 : 
+				alterar(rock,tam);
+			break;
+			
+			case 5 : 
+				ordenar(rock,tam);
+			break;
 		}
 	}
 	return 0;
