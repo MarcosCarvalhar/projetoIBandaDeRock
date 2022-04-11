@@ -45,7 +45,7 @@ void incluir(banda *rock, int &tam)
 }
 
 
-void excluir(banda *rock, int tam, int pos)
+void excluir(banda *rock, int pos)
 {
 	rock[pos].id = -1;
 	rock[pos].nome = " ";
@@ -69,9 +69,19 @@ void listar(banda *rock,int tam)
 	}
 }
 
-void alterar(banda *rock, int tam)
+void alterar(banda *rock, int alt)
 {
-	
+	//cout << "Digite o id :" << endl;
+	cin >> rock[alt].id;
+	//cout << "Digite o nome :" << endl;
+	cin.ignore();
+	getline(cin,rock[alt].nome);
+	//cout << "Digite o estilo musical :" << endl;
+	cin >> rock[alt].estilo;
+	//cout << "Digite o ano de criacao :" << endl;
+	cin >> rock[alt].ano;
+	//cout << "Digite o numero de musicas famosas:" << endl;
+	cin >> rock[alt].numFamosas;
 }
 
 void ordenar(banda *rock, int tam)
@@ -81,7 +91,7 @@ void ordenar(banda *rock, int tam)
 
 int main()
 {
-	int opc,tam = 0,pos;
+	int opc,tam = 0,exl,alt;
 	banda *rock = new banda[5];
 	while(opc != 6)
 	{
@@ -97,11 +107,13 @@ int main()
 		switch(opc)
 		{
 			case 1 : incluir(rock, tam);break;
-			case 2 : cout << "Digite a posicao do vetor que deseja alterar : " << endl;
-					 cin >> pos;
-					 excluir(rock,tam,pos);break;
+			case 2 : cout << "Digite a posicao do vetor que deseja excluir : " << endl;
+					 cin >> exl;
+					 excluir(rock,exl);break;
 			case 3 : listar(rock, tam);break;
-			case 4 : alterar(rock,tam);break;
+			case 4 : cout << "Digite a posicao do vetor que deseja alterar : " << endl;
+					 cin >> alt;
+					 alterar(rock,alt);break;
 			case 5 : ordenar(rock,tam);break;
 		}
 	}
