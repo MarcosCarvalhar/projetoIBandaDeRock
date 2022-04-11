@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -8,27 +9,29 @@ struct banda
 	string nome, estilo;
 };
 
-void redimencionar(banda *rock, int &tam)
+/*banda *redimencionar(banda *rock, int &tam)
 {
-	/*banda aux[tam];
-	for(int i = 0; i < tam; i++)
-	{
-		aux[i] = rock[i];
-	}
+	banda *aux[tam+1];
+	memcpy(aux,rock,sizeof(banda)*tam);
 	delete[] rock;
-	banda *rock = NULL;
-	rock = new banda[tam+1];
-	for(int i = 0; i < tam; i++)
-	{
-		rock[i] = aux[i];
-	}*/
+	rock = NULL;
+	return aux;
+}*/
+
+banda* redimencionar(banda *rock, int& tam)
+{
+	banda *aux = new banda[tam+1];
+	memcpy(aux, rock, sizeof(banda)*tam);
+	delete []rock;
+	rock = NULL;
+	return aux;
 }
 
 void incluir(banda *rock, int &tam)
 {
 	if(tam >= 5)
 	{	
-		redimencionar(rock,tam);
+		rock = redimencionar(rock,tam);
 	}
 	//cout << "Digite o id :" << endl;
 	cin >> rock[tam].id;
