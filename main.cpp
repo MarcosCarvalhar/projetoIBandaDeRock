@@ -27,7 +27,7 @@ banda* redimencionar(banda *rock, int& tam)
 	return aux;
 }
 
-void incluir(banda *rock, int &tam)
+banda* incluir(banda *rock, int& tam)
 {
 	if(tam >= 5)
 	{	
@@ -45,6 +45,8 @@ void incluir(banda *rock, int &tam)
 	//cout << "Digite o numero de musicas famosas:" << endl;
 	cin >> rock[tam].numFamosas;
 	tam++;
+
+	return rock;
 }
 
 
@@ -111,10 +113,10 @@ int main()
 		switch(opc)
 		{
 			case 1 : 
-            incluir(rock, tam);
-      break;
+            	rock = incluir(rock, tam);
+     		break;
 			case 2 : 
-           cout << "Digite a posicao do vetor que deseja excluir : " << endl;
+            	cout << "Digite a posicao do vetor que deseja excluir : " << endl;
 					 cin >> exl;
 					 excluir(rock,exl);
       break;
