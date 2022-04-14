@@ -9,15 +9,6 @@ struct banda
 	string nome, estilo;
 };
 
-/*banda *redimencionar(banda *rock, int &tam)
-{
-	banda *aux[tam+1];
-	memcpy(aux,rock,sizeof(banda)*tam);
-	delete[] rock;
-	rock = NULL;
-	return aux;
-}*/
-
 banda* redimencionar(banda *rock, int& tam)
 {
 	banda *aux = new banda[tam+1];
@@ -33,16 +24,15 @@ banda* incluir(banda *rock, int& tam)
 	{	
 		rock = redimencionar(rock,tam);
 	}
-	//cout << "Digite o id :" << endl;
-	cin >> rock[tam].id;
-	//cout << "Digite o nome :" << endl;
+	rock[tam].id = tam + 1;
+	cout << "Digite o nome :" << endl;
 	cin.ignore();
 	getline(cin,rock[tam].nome);
-	//cout << "Digite o estilo musical :" << endl;
+	cout << "Digite o estilo musical :" << endl;
 	cin >> rock[tam].estilo;
-	//cout << "Digite o ano de criacao :" << endl;
+	cout << "Digite o ano de criacao :" << endl;
 	cin >> rock[tam].ano;
-	//cout << "Digite o numero de musicas famosas:" << endl;
+	cout << "Digite o numero de musicas famosas:" << endl;
 	cin >> rock[tam].numFamosas;
 	tam++;
 
@@ -50,43 +40,87 @@ banda* incluir(banda *rock, int& tam)
 }
 
 
-void excluir(banda *rock, int pos)
-{
-	rock[pos].id = -1;
-	rock[pos].nome = " ";
-	rock[pos].estilo = " ";
-	rock[pos].ano = -1;
-	rock[pos].numFamosas = -1;
+void excluir(banda *rock, int exl, int opc2)
+{	
+	switch(opc2)
+	{
+		case 1 : 
+			rock[exl].nome = " ";
+			break;
+		case 2 : 
+			rock[exl].estilo = " ";
+			break;
+		case 3 : 
+			rock[exl].ano = -1;
+			break;
+		case 4 : 
+			rock[exl].numFamosas = -1;
+			break;
+		case 5 : 
+			rock[exl].id = -1;
+			rock[exl].nome = " ";
+			rock[exl].estilo = " ";
+			rock[exl].ano = -1;
+			rock[exl].numFamosas = -1;
+			break;
+	}
 }
 
-void listar(banda *rock,int tam)
+void listar(banda *rock, int tam)
 {
 	for(int j = 0; j < tam; j++)
 	{
 		if(rock[j].id != -1)
 		{
-			cout << rock[j].id << endl;
-			cout << rock[j].nome << endl;
-			cout << rock[j].estilo << endl;
-			cout << rock[j].ano << endl;
-			cout << rock[j].numFamosas << endl;
+			cout << "\t" << rock[j].nome << endl;
+			cout << "ID da banda : " << rock[j].id << endl;
+			cout << "Estilo da banda : " << rock[j].estilo << endl;
+			cout << "Ano de criacao : " << rock[j].ano << endl;
+			cout << "Numero de musicas famosas : " << rock[j].numFamosas << endl;
+			cout << endl;
 		}
 	}
 }
 
-void alterar(banda *rock, int alt)
+void alterar(banda *rock, int alt, int opc2)
 {
-	//cout << "Digite o id :" << endl;
-	cin >> rock[alt].id;
-	//cout << "Digite o nome :" << endl;
-	cin.ignore();
-	getline(cin,rock[alt].nome);
-	//cout << "Digite o estilo musical :" << endl;
-	cin >> rock[alt].estilo;
-	//cout << "Digite o ano de criacao :" << endl;
-	cin >> rock[alt].ano;
-	//cout << "Digite o numero de musicas famosas:" << endl;
-	cin >> rock[alt].numFamosas;
+	if(rock[alt].id == -1)
+	{
+				cout << "Essa posicao foi excluida, portanto nao pode ser alterada!" << endl;
+	}
+	else
+	{
+		switch(opc2)
+		{
+			case 1 : 
+				cout << "Digite o nome :" << endl;
+				cin.ignore();
+				getline(cin,rock[alt].nome);
+				break;
+			case 2 : 
+				cout << "Digite o estilo musical :" << endl;
+				cin >> rock[alt].estilo;
+				break;
+			case 3 : 
+				cout << "Digite o ano de criacao :" << endl;
+				cin >> rock[alt].ano;
+				break;
+			case 4 : 
+				cout << "Digite o numero de musicas famosas:" << endl;
+				cin >> rock[alt].numFamosas;
+				break;
+			case 5 :
+				cout << "Digite o nome :" << endl;
+				cin.ignore();
+				getline(cin,rock[alt].nome);
+				cout << "Digite o estilo musical :" << endl;
+				cin >> rock[alt].estilo;
+				cout << "Digite o ano de criacao :" << endl;
+				cin >> rock[alt].ano;
+				cout << "Digite o numero de musicas famosas:" << endl;
+				cin >> rock[alt].numFamosas;
+		}
+	}
 }
 
 void ordenar(banda *rock, int tam)
@@ -96,7 +130,7 @@ void ordenar(banda *rock, int tam)
 
 int main()
 {
-	int opc,tam = 0,exl,alt;
+	int opc, tam = 0, exl, alt, opc2;
 	banda *rock = new banda[5];
 	while(opc != 6)
 	{
@@ -107,30 +141,35 @@ int main()
 		cout << "4 - Alterar" << endl;
 		cout << "5 - Ordenar" << endl;
 		cout << "6 - Sair" << endl;
-		cout << "Digite a opcao desejada : " << endl;
-		
+		cout << "Digite a opcao desejada : " << endl;	
 		cin >> opc;
 		switch(opc)
 		{
 			case 1 : 
             	rock = incluir(rock, tam);
-     		break;
+      			break;
 			case 2 : 
             	cout << "Digite a posicao do vetor que deseja excluir : " << endl;
-					 cin >> exl;
-					 excluir(rock,exl);
-      break;
+				cin >> exl;
+				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Excluir a posicao inteira" << endl;
+				cout << "Digite a opcao que deseja excluir: " << endl;
+				cin >> opc2;
+  		 		excluir(rock,exl,opc2);
+      			break;
 			case 3 : 
-            listar(rock, tam);
-      break;
+            	listar(rock, tam);
+      			break;
 			case 4 : 
-           cout << "Digite a posicao do vetor que deseja alterar : " << endl;
-					 cin >> alt;
-					 alterar(rock,alt);
-      break;
+           		cout << "Digite a posicao do vetor que deseja alterar : " << endl;
+				cin >> alt;
+				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Todos os dados " << endl;
+				cout << "Digite a opcao que deseja alterar: " << endl;
+				cin >> opc2;
+				alterar(rock,alt,opc2);
+      			break;
 			case 5 :
-            ordenar(rock,tam);
-      break;
+            	ordenar(rock,tam);
+      			break;
 		}
 	}
 	return 0;
