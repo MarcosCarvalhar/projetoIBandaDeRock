@@ -9,6 +9,61 @@ struct banda
 	string nome, estilo;
 };
 
+void junta(banda *vetor, int menor, int maior, int metade, int tam);
+void ordenar(banda *vetor, int menor, int maior, int tam);
+void excluir(banda *rock, int exl, int opc2);
+void alterar(banda *rock, int alt, int opc2);
+banda *redimencionar(banda *rock, int& tam);
+banda *incluir(banda *rock, int& tam);
+void listar(banda *rock, int tam);
+
+int main()
+{
+	int opc, tam = 0, exl, alt, opc2;
+	banda *rock = new banda[5];
+	while(opc != 6)
+	{
+		cout << "\t MENU" << endl;
+		cout << "1 - Incluir" << endl;
+		cout << "2 - Exluir" << endl;
+		cout << "3 - Listar" << endl;
+		cout << "4 - Alterar" << endl;
+		cout << "5 - Ordenar" << endl;
+		cout << "6 - Sair" << endl;
+		cout << "Digite a opcao desejada : " << endl;	
+		cin >> opc;
+		switch(opc)
+		{
+			case 1 : 
+            	rock = incluir(rock, tam);
+      			break;
+			case 2 : 
+            	cout << "Digite a posicao do vetor que deseja excluir : " << endl;
+				cin >> exl;
+				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Excluir a posicao inteira" << endl;
+				cout << "Digite a opcao que deseja excluir: " << endl;
+				cin >> opc2;
+  		 		excluir(rock,exl,opc2);
+      			break;
+			case 3 : 
+            	listar(rock, tam);
+      			break;
+			case 4 : 
+           		cout << "Digite a posicao do vetor que deseja alterar : " << endl;
+				cin >> alt;
+				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Todos os dados " << endl;
+				cout << "Digite a opcao que deseja alterar: " << endl;
+				cin >> opc2;
+				alterar(rock,alt,opc2);
+      			break;
+			case 5 :
+            	ordenar(rock, 0, tam-1, tam);
+      			break;
+		}
+	}
+	return 0;
+}
+
 banda* redimencionar(banda *rock, int& tam)
 {
 	banda *aux = new banda[tam+1];
@@ -123,54 +178,54 @@ void alterar(banda *rock, int alt, int opc2)
 	}
 }
 
-void ordenar(banda *rock, int tam)
-{
-	
-}
+void junta(banda *vetor, int menor, int maior, int metade, int tam)
+{	
+	int aux1, aux2, aux3;
+	aux1 = menor;
+	aux2 = menor;
+	aux3 = metade+1;
+	banda v[tam];
 
-int main()
-{
-	int opc, tam = 0, exl, alt, opc2;
-	banda *rock = new banda[5];
-	while(opc != 6)
+	while (aux1 <= metade and aux3 <= maior)
 	{
-		cout << "\t MENU" << endl;
-		cout << "1 - Incluir" << endl;
-		cout << "2 - Exluir" << endl;
-		cout << "3 - Listar" << endl;
-		cout << "4 - Alterar" << endl;
-		cout << "5 - Ordenar" << endl;
-		cout << "6 - Sair" << endl;
-		cout << "Digite a opcao desejada : " << endl;	
-		cin >> opc;
-		switch(opc)
+		if (vetor[aux1].ano < vetor[aux3].ano) 
 		{
-			case 1 : 
-            	rock = incluir(rock, tam);
-      			break;
-			case 2 : 
-            	cout << "Digite a posicao do vetor que deseja excluir : " << endl;
-				cin >> exl;
-				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Excluir a posicao inteira" << endl;
-				cout << "Digite a opcao que deseja excluir: " << endl;
-				cin >> opc2;
-  		 		excluir(rock,exl,opc2);
-      			break;
-			case 3 : 
-            	listar(rock, tam);
-      			break;
-			case 4 : 
-           		cout << "Digite a posicao do vetor que deseja alterar : " << endl;
-				cin >> alt;
-				cout << "1 - Nome | 2 - Estilo | 3 - Ano de criacao | 4 - Numero de musicas famosas | 5 - Todos os dados " << endl;
-				cout << "Digite a opcao que deseja alterar: " << endl;
-				cin >> opc2;
-				alterar(rock,alt,opc2);
-      			break;
-			case 5 :
-            	ordenar(rock,tam);
-      			break;
+			v[aux2] = vetor[aux1];
+			aux1++;
+			aux2++;
+		}
+		else
+		{
+			v[aux2] = vetor[aux3];
+			aux2++;
+			aux3++;
 		}
 	}
-	return 0;
+	while (aux1 <= metade) 
+	{
+		v[aux2] = vetor[aux1];
+		aux2++;
+		aux1++;
+	}
+	while (aux3 <= maior) 
+	{
+		v[aux2] = vetor[aux3];
+		aux2++;
+		aux3++;
+	}
+    for (int i = menor; i < aux2; i++)
+	{
+        vetor[i] = v[i];
+    }	
+}
+
+void ordenar(banda *vetor, int menor, int maior, int tam)
+{
+	int metade;
+	if(menor < maior){
+		metade = (menor + maior) / 2;
+		ordenar(vetor, menor, metade, tam);
+		ordenar(vetor, metade+1, maior, tam);
+		junta(vetor, menor, maior, metade, tam);
+	}
 }
