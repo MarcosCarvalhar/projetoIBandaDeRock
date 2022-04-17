@@ -21,6 +21,7 @@ void ordenar(banda *vetor, int menor, int maior, int tam, int opc2);
 void junta(banda *vetor, int menor, int maior, int metade, int tam, int opc2);
 
 // Programa principal.
+// Todos
 int main()
 {
 	// Declaração de variáveis.
@@ -77,16 +78,18 @@ int main()
 }
 
 // Função redimencionar, recebe um vetor e seu tamanho e aumenta sua posição em uma, e retorna o vetor.
+// Marcos e Marcus
 banda* redimencionar(banda *rock, int& tam)
 {
-	banda *aux = new banda[tam+1];
-	memcpy(aux, rock, sizeof(banda)*tam);
-	delete []rock;
-	rock = NULL;
-	return aux;
+	banda *aux = new banda[tam+1];         // cria um vetor auxiliar com tamanho +1
+	memcpy(aux, rock, sizeof(banda)*tam);  // copia o vetor principal pro novo vetor auxiliar
+	delete []rock;                         // apaga o vetor principal
+	rock = NULL;                           // adiciona valor NULL para vetor principal
+	return aux;                            // retorna o vetor auxiliar no lugar do vetor principal
 }
 
 // Função incluir, recebe um vetor e sua posição e a preenche.
+// Marcus
 banda* incluir(banda *rock, int& tam)
 {
 	// Se o vetor for maior ou igual a 5, chama a função redimencionar para aumentar o tamanho do vetor.
@@ -112,6 +115,7 @@ banda* incluir(banda *rock, int& tam)
 
 // Função excluir, exclui uma posição inteira do vetor ou campo especifico à marcando com uma flag, -1 para os campos int, e um espaço em branco para os campos string.
 // Recebe um vetor de rock e a posição que será excluída.
+// Marcus
 void excluir(banda *rock, int exl, int opc2)
 {	
 	switch(opc2)
@@ -144,6 +148,7 @@ void excluir(banda *rock, int exl, int opc2)
 }
 
 // Recebe um vetor e seu tamanho e lista as posições preenchidas, exibindo suas informações, através de um laço
+// Marcus
 void listar(banda *rock, int tam)
 {
 	for(int j = 0; j < tam; j++)
@@ -163,6 +168,7 @@ void listar(banda *rock, int tam)
 }
 
 // Função alterar, recebe um vetor, a posição que deseja alterar e qual campo
+// Marcus
 void alterar(banda *rock, int alt, int opc2)
 {
 	// Caso o campo ID esteja marcado pela fla, -1, essa posição não poderá ser alterada, pois foi excluída
@@ -213,20 +219,25 @@ void alterar(banda *rock, int alt, int opc2)
 
 // Função para ordenar o vetor com base na opção escolhida pelo usuário
 // Recebe o vetor de rock e seu tamanho, o menor e o maior campo e a opção com o campo na qual o vetor será será ordenado
+// Marcos e Hudson
+
+// Ordenação Merge Sort
 void ordenar(banda *vetor, int menor, int maior, int tam, int opc2)
 {
+	// Divide o vetor até que cada vetor menor tenha um unico elemento
 	int metade;
 	if(menor < maior)
 	{
 		metade = (menor + maior) / 2;
 		ordenar(vetor, menor, metade, tam, opc2);
 		ordenar(vetor, metade+1, maior, tam, opc2);
-		junta(vetor, menor, maior, metade, tam, opc2);
+		junta(vetor, menor, maior, metade, tam, opc2); 
 	}
 }
 
 void junta(banda *vetor, int menor, int maior, int metade, int tam, int opc2)
 {	
+	// Junta dois vetores obtendo um vetor maior ordenado
 	banda v[tam];
 	int aux1 = menor;
 	int aux2 = menor;
@@ -236,6 +247,7 @@ void junta(banda *vetor, int menor, int maior, int metade, int tam, int opc2)
 	{
 		switch (opc2)
 		{
+			// seleciona o tipo de ordenação
 			case 1:
 			pri_Posicao = vetor[aux1].id;
 			ult_Posicao = vetor[aux3].id;
