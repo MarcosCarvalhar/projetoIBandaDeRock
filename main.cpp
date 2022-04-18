@@ -81,11 +81,12 @@ int main()
 // Marcos e Marcus
 banda* redimencionar(banda *rock, int& tam)
 {
-	banda *aux = new banda[tam+1];         // cria um vetor auxiliar com tamanho +1
-	memcpy(aux, rock, sizeof(banda)*tam);  // copia o vetor principal pro novo vetor auxiliar
-	delete []rock;                         // apaga o vetor principal
-	rock = NULL;                           // adiciona valor NULL para vetor principal
-	return aux;                            // retorna o vetor auxiliar no lugar do vetor principal
+	float p = tam + (tam * 0.2);
+	banda *aux = new banda[(int)p];		   // cria um vetor auxiliar com tamanho 20% maior.
+	memcpy(aux, rock, sizeof(banda)*tam);  // copia o vetor principal pro novo vetor auxiliar.
+	delete []rock;                         // apaga o vetor principal.
+	rock = NULL;                           // adiciona valor NULL para vetor principal.
+	return aux;                            // retorna o vetor auxiliar no lugar do vetor principal.
 }
 
 // Função incluir, recebe um vetor e sua posição e a preenche.
